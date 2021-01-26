@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SGMobileBarrier</string>
+    <string name="button_connect">Connect</string>
 </resources>
