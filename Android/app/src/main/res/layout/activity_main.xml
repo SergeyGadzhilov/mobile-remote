@@ -10,6 +10,7 @@
         android:id="@+id/button"
         android:layout_width="0dp"
         android:layout_height="91dp"
+        android:onClick="onStartService"
         android:text="@string/button_start"
         android:textSize="24sp"
         app:backgroundTint="@color/teal_700"
