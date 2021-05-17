@@ -1,4 +1,4 @@
-package com.sg.mobile_remote.service
+package com.sg.mobile_remote
 
 import android.accessibilityservice.AccessibilityService
 import android.content.Intent
