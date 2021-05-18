@@ -2,6 +2,7 @@
     <string name="app_name">SGMobileRemote</string>
     <string name="button_start">Start</string>
     <string name="service_id">com.sg.mobile_remote/.SGMobileRemoteService</string>
+    <string name="service_name">SGMobileRemoteService</string>
     <string name="start_service_dialog_message">Please, start SGMobileRemote accessibility service.
         1. Click OK
         2. Select SGMobileRemote
