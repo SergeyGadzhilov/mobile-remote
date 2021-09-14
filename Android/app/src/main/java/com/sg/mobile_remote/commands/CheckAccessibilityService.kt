@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.sg.mobile_remote.R
 import com.sg.mobile_remote.StartServiceDialog
 
-class CheckAccessibilityService(private val context: AppCompatActivity) : Command, CommandsChain() {
+class CheckAccessibilityService(private val context: AppCompatActivity) : Command() {
     override fun run() {
         if (isEnabled()) {
             next()

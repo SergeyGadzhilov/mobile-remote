@@ -5,7 +5,7 @@ import android.net.Uri
 import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 
-class CheckDrawOverlays(private val context: AppCompatActivity) : Command, CommandsChain() {
+class CheckDrawOverlays(private val context: AppCompatActivity) : Command() {
     override fun run() {
         if (Settings.canDrawOverlays(context)) {
             next()

@@ -6,16 +6,29 @@ import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 
 class SGMobileRemoteService() : AccessibilityService() {
+
+    override fun onServiceConnected() {
+        Log.i("SGADTRACE", "onAccessibilityEvent")
+        ServiceBinder.setService(this)
+        super.onServiceConnected()
+    }
+
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-        TODO("Not yet implemented")
+        Log.i("SGADTRACE", "onAccessibilityEvent")
+    }
+
+    override fun onUnbind(intent: Intent?): Boolean {
+        Log.i("SGADTRACE", "onUnbind")
+        ServiceBinder.setService(null)
+        return super.onUnbind(intent)
     }
 
     override fun onInterrupt() {
-        TODO("Not yet implemented")
+        Log.i("SGADTRACE", "onInterrupt")
+        ServiceBinder.setService(null)
     }
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.d("SGADTRACE", "onStartCommand")
-        return super.onStartCommand(intent, flags, startId)
+    fun connect() {
+        Log.i("SGADTRACE", "SGMobileRemoteService::connect")
     }
 }
