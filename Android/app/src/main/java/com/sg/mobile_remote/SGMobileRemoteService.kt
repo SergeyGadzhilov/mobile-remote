@@ -9,7 +9,7 @@ class SGMobileRemoteService() : AccessibilityService() {
 
     override fun onServiceConnected() {
         Log.i("SGADTRACE", "onAccessibilityEvent")
-        ServiceBinder.setService(this)
+        ServiceClient.bind(this)
         super.onServiceConnected()
     }
 
@@ -19,13 +19,13 @@ class SGMobileRemoteService() : AccessibilityService() {
 
     override fun onUnbind(intent: Intent?): Boolean {
         Log.i("SGADTRACE", "onUnbind")
-        ServiceBinder.setService(null)
+        ServiceClient.unbind()
         return super.onUnbind(intent)
     }
 
     override fun onInterrupt() {
         Log.i("SGADTRACE", "onInterrupt")
-        ServiceBinder.setService(null)
+        ServiceClient.unbind()
     }
 
     fun connect() {

@@ -6,7 +6,13 @@ abstract class Command {
     abstract fun run()
 
     fun setNext(command: Command) : Command {
-        next = command
+        if (next == null) {
+            next = command
+        }
+        else {
+            next?.setNext(command)
+        }
+
         return this
     }
 
