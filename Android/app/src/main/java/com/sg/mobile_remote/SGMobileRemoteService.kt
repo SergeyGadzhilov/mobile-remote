@@ -4,6 +4,7 @@ import android.accessibilityservice.AccessibilityService
 import android.content.Intent
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
+import com.sg.mobile_remote.core.MobileRemoteClient
 
 class SGMobileRemoteService() : AccessibilityService() {
 
@@ -30,5 +31,7 @@ class SGMobileRemoteService() : AccessibilityService() {
 
     fun connect() {
         Log.i("SGADTRACE", "SGMobileRemoteService::connect")
+        val client = MobileRemoteClient()
+        client.start()
     }
 }
