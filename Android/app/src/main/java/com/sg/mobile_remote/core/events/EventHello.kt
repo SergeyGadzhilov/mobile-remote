@@ -1,12 +1,12 @@
 package com.sg.mobile_remote.core.events
 
-class EventHello(private val major : Int, private val minor : Int) : Event(EventType.Hello) {
+class EventHello(private val major : Short, private val minor : Short) : Event(EventType.Hello) {
 
-    fun getMajorVersion() : Int {
+    fun getMajorVersion() : Short {
         return major
     }
 
-    fun getMinorVersion(): Int {
+    fun getMinorVersion(): Short {
         return minor
     }
 

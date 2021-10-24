@@ -14,7 +14,11 @@ class Network {
     }
 
     fun sendMessage(message : NetworkMessage) {
-        Log.i("SGADTRACE", "Send message")
+        val stream = _socket?.getOutputStream()
+        stream?.write(message.toByteArray())
+        stream?.flush()
+
+        Log.i("SGADTRACE", "Send message: $message")
     }
 
     fun disconnect() {
