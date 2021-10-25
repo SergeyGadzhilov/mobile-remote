@@ -21,6 +21,8 @@ class MobileRemoteClient : Thread(), EventListener {
     override fun handleEvent(event: Event) {
         if (event.type() == EventType.Hello) {
             val helloMessage = event as EventHello
+            helloMessage.setName("Android")
+
             val routerEvent = EventNetworkRouter(helloMessage)
             _eventDispatcher.sendEvent(routerEvent)
 

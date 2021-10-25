@@ -32,10 +32,11 @@ class Network {
     private fun startRead() {
         val message = NetworkMessage()
         while(_socket?.isClosed == false) {
-            message.add(_socket?.getInputStream()?.read())
+            message.write(_socket?.getInputStream()?.read()!!)
             if (_socket?.getInputStream()?.available()!! <= 0) {
+                 Log.i("SGADTRACE", "Raw server message: $message")
                 _router?.sendMessage(message)
-                message.clear()
+                message.reset()
             }
         }
     }
