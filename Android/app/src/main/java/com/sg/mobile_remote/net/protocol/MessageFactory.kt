@@ -2,9 +2,9 @@ package com.sg.mobile_remote.net.protocol
 
 import com.sg.mobile_remote.core.events.EventType
 
-class TranslatorFactory() {
+class MessageFactory() {
     private val _mapTranslators = mapOf<MessageType, MessageTranslator>(
-        MessageType.Synergy to HelloTranslator()
+        MessageType.Synergy to MessageHello()
     )
 
     private val _mapEvents = mapOf<EventType, MessageType> (

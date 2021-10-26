@@ -21,9 +21,11 @@ class NetworkRouter(private val _network: Network,
         _network.connect(host, port)
     }
 
-    fun sendMessage(message: NetworkMessage) {
+    fun sendMessage(message: NetworkInputMessage) {
         val event = _protocol.createEvent(message)
-        _eventDispatcher.sendEvent(event)
+        if (event != null) {
+            _eventDispatcher.sendEvent(event)
+        }
         Log.i("SGADTRACE", "Server message: $event")
     }
 
