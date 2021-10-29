@@ -5,7 +5,6 @@ class EventQueryInfo : Event(EventType.QueryInfo) {
     private var _screenY = 0
     private var _screenWidth = 100
     private var _screenHeight = 100
-    private var _unknown = 0
     private var _cursorX = 0
     private var _cursorY = 0
 
@@ -23,10 +22,6 @@ class EventQueryInfo : Event(EventType.QueryInfo) {
 
     fun setScreenHeight(screenHeight : Int) {
         _screenHeight = screenHeight
-    }
-
-    fun setUnknown(unknown : Int) {
-        _unknown = unknown
     }
 
     fun setCursorX(cursorX : Int) {
@@ -51,10 +46,6 @@ class EventQueryInfo : Event(EventType.QueryInfo) {
 
     fun getScreenHeight() : Int {
         return _screenHeight
-    }
-
-    fun getUnknown() : Int {
-        return _unknown
     }
 
     fun getCursorX() : Int {

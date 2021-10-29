@@ -31,8 +31,10 @@ class Network {
 
     private fun startRead() {
         while(_socket?.isClosed == false) {
-            val message = NetworkInputMessage(_socket?.getInputStream())
-            _router?.sendMessage(message)
+            if (_socket?.getInputStream()?.available()!! > 0) {
+                val message = NetworkInputMessage(_socket?.getInputStream())
+                _router?.sendMessage(message)
+            }
         }
     }
 }

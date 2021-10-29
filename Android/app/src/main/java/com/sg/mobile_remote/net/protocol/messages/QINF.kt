@@ -23,12 +23,12 @@ class QINF : MessageTranslator {
             val messageData = ByteArrayOutputStream()
 
             val stream = DataOutputStream(messageData)
-            stream.write("DINF".toByteArray())
+            stream.write(MessageType.DINF.toString().toByteArray())
             stream.writeShort(event.getScreenX())
             stream.writeShort(event.getScreenY())
             stream.writeShort(event.getScreenHeight())
             stream.writeShort(event.getScreenWidth())
-            stream.writeShort(event.getUnknown())
+            stream.writeShort(0)
             stream.writeShort(event.getCursorX())
             stream.writeShort(event.getCursorY())
 
