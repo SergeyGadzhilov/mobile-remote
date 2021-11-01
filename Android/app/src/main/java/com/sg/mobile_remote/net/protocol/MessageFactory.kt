@@ -1,18 +1,21 @@
 package com.sg.mobile_remote.net.protocol
 
 import com.sg.mobile_remote.core.events.EventType
+import com.sg.mobile_remote.net.protocol.messages.CALV
 import com.sg.mobile_remote.net.protocol.messages.MessageHello
 import com.sg.mobile_remote.net.protocol.messages.QINF
 
 class MessageFactory() {
     private val _mapTranslators = mapOf<MessageType, MessageTranslator>(
         MessageType.Synergy to MessageHello(),
-        MessageType.QINF to QINF()
+        MessageType.QINF to QINF(),
+        MessageType.CALV to CALV()
     )
 
     private val _mapEvents = mapOf<EventType, MessageType> (
         EventType.Hello to MessageType.Synergy,
-        EventType.QueryInfo to MessageType.QINF
+        EventType.QueryInfo to MessageType.QINF,
+        EventType.KeepAlive to MessageType.CALV
     )
 
     fun createTranslator(type : MessageType): MessageTranslator? {

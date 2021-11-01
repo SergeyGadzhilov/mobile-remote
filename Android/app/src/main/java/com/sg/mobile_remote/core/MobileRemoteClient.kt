@@ -14,7 +14,13 @@ class MobileRemoteClient : Thread(), EventListener {
     override fun run() {
         _eventDispatcher.listenEvent(EventType.Hello, this)
         _eventDispatcher.listenEvent(EventType.QueryInfo, this)
+        _eventDispatcher.listenEvent(EventType.KeepAlive, this)
         _networkRouter.connect("192.168.0.165", 24800)
+    }
+
+    private fun handleKeepAlive(event: EventKeepAlive) {
+        val routerEvent = EventNetworkRouter(event)
+        _eventDispatcher.sendEvent(routerEvent)
     }
 
     override fun handleEvent(event: Event) {
@@ -23,6 +29,9 @@ class MobileRemoteClient : Thread(), EventListener {
         }
         else if (event.type() == EventType.QueryInfo) {
             handleQueryInfo(event as EventQueryInfo)
+        }
+        else if (event.type() == EventType.KeepAlive) {
+            handleKeepAlive(event as EventKeepAlive)
         }
     }
 
