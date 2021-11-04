@@ -9,13 +9,12 @@ import kotlin.concurrent.thread
 
 class MobileRemoteClient : EventListener {
     private val _screen = Screen()
-    private val _eventDispatcher = EventDispatcher()
-    private val _networkRouter = NetworkRouter(Network(), NetworkProtocol(), _eventDispatcher)
+    private val _networkRouter = NetworkRouter(Network(), NetworkProtocol())
 
     init {
-        _eventDispatcher.listenEvent(EventType.Hello, this)
-        _eventDispatcher.listenEvent(EventType.QueryInfo, this)
-        _eventDispatcher.listenEvent(EventType.KeepAlive, this)
+        EventDispatcher.listenEvent(EventType.Hello, this)
+        EventDispatcher.listenEvent(EventType.QueryInfo, this)
+        EventDispatcher.listenEvent(EventType.KeepAlive, this)
     }
 
     fun startClient() {
@@ -28,7 +27,7 @@ class MobileRemoteClient : EventListener {
 
     private fun handleKeepAlive(event: EventKeepAlive) {
         val routerEvent = EventNetworkRouter(event)
-        _eventDispatcher.sendEvent(routerEvent)
+        EventDispatcher.sendEvent(routerEvent)
     }
 
     override fun handleEvent(event: Event) {
@@ -48,7 +47,7 @@ class MobileRemoteClient : EventListener {
         event.setScreenWidth(_screen.getWidth())
 
         val routerEvent = EventNetworkRouter(event)
-        _eventDispatcher.sendEvent(routerEvent)
+        EventDispatcher.sendEvent(routerEvent)
 
         Log.i("SGADTRACE", "MobileRemoteClient: $event")
     }
@@ -57,7 +56,7 @@ class MobileRemoteClient : EventListener {
         event.setName("Android")
 
         val routerEvent = EventNetworkRouter(event)
-        _eventDispatcher.sendEvent(routerEvent)
+        EventDispatcher.sendEvent(routerEvent)
 
         Log.i("SGADTRACE", "MobileRemoteClient: $event")
     }
