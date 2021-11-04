@@ -8,6 +8,7 @@ import com.sg.mobile_remote.net.protocol.NetworkProtocol
 import kotlin.concurrent.thread
 
 class MobileRemoteClient : EventListener {
+    private var _isConnected = false
     private val _screen = Screen()
     private val _networkRouter = NetworkRouter(Network(), NetworkProtocol())
 
@@ -23,6 +24,7 @@ class MobileRemoteClient : EventListener {
 
     fun stopClient() {
         _networkRouter.disconnect()
+        _isConnected = false
     }
 
     private fun handleKeepAlive(event: EventKeepAlive) {
@@ -48,6 +50,7 @@ class MobileRemoteClient : EventListener {
 
         val routerEvent = EventNetworkRouter(event)
         EventDispatcher.sendEvent(routerEvent)
+        _isConnected = true
 
         Log.i("SGADTRACE", "MobileRemoteClient: $event")
     }
@@ -59,6 +62,10 @@ class MobileRemoteClient : EventListener {
         EventDispatcher.sendEvent(routerEvent)
 
         Log.i("SGADTRACE", "MobileRemoteClient: $event")
+    }
+
+    fun isConnected() : Boolean {
+        return _isConnected
     }
 
 }

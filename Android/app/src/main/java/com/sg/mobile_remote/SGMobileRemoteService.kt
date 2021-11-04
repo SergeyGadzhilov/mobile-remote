@@ -40,4 +40,8 @@ class SGMobileRemoteService() : AccessibilityService() {
         Log.i("SGADTRACE", "SGMobileRemoteService::disconnect")
         _client.stopClient()
     }
+
+    fun isConnected() : Boolean {
+        return _client.isConnected()
+    }
 }

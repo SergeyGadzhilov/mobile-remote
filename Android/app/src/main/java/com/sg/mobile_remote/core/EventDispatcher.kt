@@ -17,6 +17,14 @@ object EventDispatcher {
         }
     }
 
+    fun removeListener(type : EventType, listener: EventListener) {
+        synchronized(_listeners) {
+            if (!_listeners.containsKey(type)) {
+                _listeners[type]?.remove(listener)
+            }
+        }
+    }
+
     fun sendEvent(event : Event) {
         synchronized(_listeners) {
             if (_listeners.containsKey(event.type())) {
@@ -29,4 +37,7 @@ object EventDispatcher {
             }
         }
     }
+
+
+
 }
