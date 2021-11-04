@@ -9,8 +9,10 @@ class Network {
     private var _router : NetworkRouter? = null
 
     fun connect(host : String, port : Int){
-        _socket = Socket(host, port)
-        thread{startRead()}
+        thread{
+            _socket = Socket(host, port)
+            startRead()
+        }
     }
 
     fun sendMessage(message : NetworkOutputMessage) {
@@ -36,5 +38,6 @@ class Network {
                 _router?.sendMessage(message)
             }
         }
+        Log.i("SGADTRACE", "sockerReading finished")
     }
 }

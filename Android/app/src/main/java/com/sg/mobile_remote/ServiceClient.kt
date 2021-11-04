@@ -14,4 +14,8 @@ object ServiceClient{
     fun connect() {
         m_service?.connect()
     }
+
+    fun disconnect() {
+        m_service?.disconnect()
+    }
 }

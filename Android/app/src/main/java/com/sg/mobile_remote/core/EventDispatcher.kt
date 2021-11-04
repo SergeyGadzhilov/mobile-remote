@@ -5,14 +5,15 @@ import com.sg.mobile_remote.core.events.EventType
 import java.util.*
 
 class EventDispatcher {
-    private val _listeners = mutableMapOf<EventType, Vector<EventListener>>()
+    private val _listeners = mutableMapOf<EventType, MutableSet<EventListener>>()
 
     fun listenEvent(type : EventType, listener: EventListener) {
         if (!_listeners.containsKey(type)) {
-            _listeners[type] = Vector<EventListener>()
-
+            _listeners[type] = mutableSetOf<EventListener>(listener)
         }
-        _listeners[type]?.add(listener)
+        else {
+            _listeners[type]?.add(listener)
+        }
     }
 
     fun sendEvent(event : Event) {

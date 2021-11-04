@@ -5,17 +5,25 @@ import com.sg.mobile_remote.core.events.*
 import com.sg.mobile_remote.net.Network
 import com.sg.mobile_remote.net.NetworkRouter
 import com.sg.mobile_remote.net.protocol.NetworkProtocol
+import kotlin.concurrent.thread
 
-class MobileRemoteClient : Thread(), EventListener {
+class MobileRemoteClient : EventListener {
     private val _screen = Screen()
     private val _eventDispatcher = EventDispatcher()
     private val _networkRouter = NetworkRouter(Network(), NetworkProtocol(), _eventDispatcher)
 
-    override fun run() {
+    init {
         _eventDispatcher.listenEvent(EventType.Hello, this)
         _eventDispatcher.listenEvent(EventType.QueryInfo, this)
         _eventDispatcher.listenEvent(EventType.KeepAlive, this)
+    }
+
+    fun startClient() {
         _networkRouter.connect("192.168.0.165", 24800)
+    }
+
+    fun stopClient() {
+        _networkRouter.disconnect()
     }
 
     private fun handleKeepAlive(event: EventKeepAlive) {

@@ -7,6 +7,7 @@ import com.sg.mobile_remote.core.events.Event
 import com.sg.mobile_remote.core.events.EventNetworkRouter
 import com.sg.mobile_remote.core.events.EventType
 import com.sg.mobile_remote.net.protocol.NetworkProtocol
+import kotlin.concurrent.thread
 
 class NetworkRouter(private val _network: Network,
                     private val _protocol : NetworkProtocol,
@@ -18,7 +19,13 @@ class NetworkRouter(private val _network: Network,
     }
 
     fun connect(host: String, port: Int) {
+        Log.i("SGADTRACE", "Connect started")
         _network.connect(host, port)
+        Log.i("SGADTRACE" , "Connect finished")
+    }
+
+    fun disconnect() {
+        _network.disconnect()
     }
 
     fun sendMessage(message: NetworkInputMessage) {
