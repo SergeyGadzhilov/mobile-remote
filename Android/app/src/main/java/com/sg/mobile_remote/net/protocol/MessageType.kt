@@ -5,5 +5,6 @@ enum class MessageType {
     Synergy,
     QINF,
     DINF,
-    CALV
+    CALV,
+    CBYE
 }

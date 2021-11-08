@@ -16,6 +16,7 @@ class MobileRemoteClient : EventListener {
         EventDispatcher.listenEvent(EventType.Hello, this)
         EventDispatcher.listenEvent(EventType.QueryInfo, this)
         EventDispatcher.listenEvent(EventType.KeepAlive, this)
+        EventDispatcher.listenEvent(EventType.Bye, this)
     }
 
     fun startClient() {
@@ -41,6 +42,9 @@ class MobileRemoteClient : EventListener {
         }
         else if (event.type() == EventType.KeepAlive) {
             handleKeepAlive(event as EventKeepAlive)
+        }
+        else if (event.type() == EventType.Bye) {
+            this.stopClient()
         }
     }
 

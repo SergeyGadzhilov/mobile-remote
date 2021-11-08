@@ -6,5 +6,6 @@ enum class EventType {
     NetworkRouter,
     QueryInfo,
     KeepAlive,
-    ConnectionError
+    ConnectionError,
+    Bye
 }

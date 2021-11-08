@@ -14,11 +14,22 @@ class Start(private val context: AppCompatActivity, private val _button : Button
 
     init {
         _button.setText("Start")
+
+    }
+
+    private fun registerEvents() {
         EventDispatcher.listenEvent(EventType.QueryInfo, this)
         EventDispatcher.listenEvent(EventType.ConnectionError, this)
     }
 
+    private fun removeEvents() {
+        EventDispatcher.removeListener(EventType.QueryInfo, this)
+        EventDispatcher.removeListener(EventType.ConnectionError, this)
+    }
+
+
     override fun run() {
+        this.registerEvents()
         val startCommand = CheckDrawOverlays(context)
         startCommand.setNext(CheckAccessibilityService(context))
         startCommand.setNext(Connect(context, _button))
@@ -35,14 +46,15 @@ class Start(private val context: AppCompatActivity, private val _button : Button
     }
 
     private fun handleStarted(event: EventQueryInfo) {
+        removeEvents()
         context.runOnUiThread( Runnable(){
             _button.enable()
             _button.setCommand(Stop(context, _button))
-            EventDispatcher.removeListener(EventType.QueryInfo, this)
         })
     }
 
     private fun handleConnectionFailed(event : EventConnectionError) {
+        removeEvents()
         context.runOnUiThread( Runnable(){_button.enable()})
     }
 }
