@@ -8,6 +8,7 @@ import com.sg.mobile_remote.core.events.Event
 import com.sg.mobile_remote.core.events.EventConnectionError
 import com.sg.mobile_remote.core.events.EventQueryInfo
 import com.sg.mobile_remote.core.events.EventType
+import com.sg.mobile_remote.dialogs.ErrorDialog
 
 class Start(private val context: AppCompatActivity, private val _button : ButtonStart) :
     Command(), EventListener {
@@ -55,6 +56,9 @@ class Start(private val context: AppCompatActivity, private val _button : Button
 
     private fun handleConnectionFailed(event : EventConnectionError) {
         removeEvents()
-        context.runOnUiThread( Runnable(){_button.enable()})
+        context.runOnUiThread( Runnable(){
+            ErrorDialog(context,"Can't connect to the server!").show()
+            _button.enable()
+        })
     }
 }
