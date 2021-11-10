@@ -14,4 +14,17 @@ object ServiceClient{
     fun connect() {
         m_service?.connect()
     }
+
+    fun disconnect() {
+        m_service?.disconnect()
+    }
+
+    fun isConnected() : Boolean {
+        var connected = false
+
+        if (m_service != null) {
+            connected = (m_service?.isConnected() == true)
+        }
+        return connected
+    }
 }

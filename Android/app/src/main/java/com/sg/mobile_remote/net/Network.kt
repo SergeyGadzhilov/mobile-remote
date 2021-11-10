@@ -1,6 +1,9 @@
 package com.sg.mobile_remote.net
 
 import android.util.Log
+import com.sg.mobile_remote.core.EventDispatcher
+import com.sg.mobile_remote.core.events.EventConnectionError
+import java.io.IOException
 import java.net.Socket
 import kotlin.concurrent.thread
 
@@ -9,8 +12,16 @@ class Network {
     private var _router : NetworkRouter? = null
 
     fun connect(host : String, port : Int){
-        _socket = Socket(host, port)
-        thread{startRead()}
+        thread{
+            try {
+                _socket = Socket(host, port)
+                startRead()
+            }
+            catch(e : IOException) {
+                Log.e("SGADTRACE", e.toString())
+                EventDispatcher.sendEvent(EventConnectionError(e.toString()))
+            }
+        }
     }
 
     fun sendMessage(message : NetworkOutputMessage) {
@@ -36,5 +47,6 @@ class Network {
                 _router?.sendMessage(message)
             }
         }
+        Log.i("SGADTRACE", "sockerReading finished")
     }
 }

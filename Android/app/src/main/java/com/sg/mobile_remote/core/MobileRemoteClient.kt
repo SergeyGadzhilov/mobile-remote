@@ -5,22 +5,32 @@ import com.sg.mobile_remote.core.events.*
 import com.sg.mobile_remote.net.Network
 import com.sg.mobile_remote.net.NetworkRouter
 import com.sg.mobile_remote.net.protocol.NetworkProtocol
+import kotlin.concurrent.thread
 
-class MobileRemoteClient : Thread(), EventListener {
+class MobileRemoteClient : EventListener {
+    private var _isConnected = false
     private val _screen = Screen()
-    private val _eventDispatcher = EventDispatcher()
-    private val _networkRouter = NetworkRouter(Network(), NetworkProtocol(), _eventDispatcher)
+    private val _networkRouter = NetworkRouter(Network(), NetworkProtocol())
 
-    override fun run() {
-        _eventDispatcher.listenEvent(EventType.Hello, this)
-        _eventDispatcher.listenEvent(EventType.QueryInfo, this)
-        _eventDispatcher.listenEvent(EventType.KeepAlive, this)
+    init {
+        EventDispatcher.listenEvent(EventType.Hello, this)
+        EventDispatcher.listenEvent(EventType.QueryInfo, this)
+        EventDispatcher.listenEvent(EventType.KeepAlive, this)
+        EventDispatcher.listenEvent(EventType.Bye, this)
+    }
+
+    fun startClient() {
         _networkRouter.connect("192.168.0.165", 24800)
+    }
+
+    fun stopClient() {
+        _networkRouter.disconnect()
+        _isConnected = false
     }
 
     private fun handleKeepAlive(event: EventKeepAlive) {
         val routerEvent = EventNetworkRouter(event)
-        _eventDispatcher.sendEvent(routerEvent)
+        EventDispatcher.sendEvent(routerEvent)
     }
 
     override fun handleEvent(event: Event) {
@@ -33,6 +43,9 @@ class MobileRemoteClient : Thread(), EventListener {
         else if (event.type() == EventType.KeepAlive) {
             handleKeepAlive(event as EventKeepAlive)
         }
+        else if (event.type() == EventType.Bye) {
+            this.stopClient()
+        }
     }
 
     private fun handleQueryInfo(event : EventQueryInfo) {
@@ -40,7 +53,8 @@ class MobileRemoteClient : Thread(), EventListener {
         event.setScreenWidth(_screen.getWidth())
 
         val routerEvent = EventNetworkRouter(event)
-        _eventDispatcher.sendEvent(routerEvent)
+        EventDispatcher.sendEvent(routerEvent)
+        _isConnected = true
 
         Log.i("SGADTRACE", "MobileRemoteClient: $event")
     }
@@ -49,9 +63,13 @@ class MobileRemoteClient : Thread(), EventListener {
         event.setName("Android")
 
         val routerEvent = EventNetworkRouter(event)
-        _eventDispatcher.sendEvent(routerEvent)
+        EventDispatcher.sendEvent(routerEvent)
 
         Log.i("SGADTRACE", "MobileRemoteClient: $event")
+    }
+
+    fun isConnected() : Boolean {
+        return _isConnected
     }
 
 }
