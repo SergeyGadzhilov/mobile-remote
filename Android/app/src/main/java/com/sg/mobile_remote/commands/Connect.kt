@@ -7,6 +7,7 @@ import com.sg.mobile_remote.controls.ButtonStart
 class Connect(private val context: AppCompatActivity, private val _button : ButtonStart) : Command() {
     override fun run() {
         _button.disable()
+        _button.setText("Starting...")
         ServiceClient.connect()
     }
 }
