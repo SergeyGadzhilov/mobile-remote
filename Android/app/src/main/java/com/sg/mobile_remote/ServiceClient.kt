@@ -1,5 +1,7 @@
 package com.sg.mobile_remote
 
+import androidx.appcompat.app.AppCompatActivity
+
 object ServiceClient{
     private var m_service : SGMobileRemoteService? = null
 
@@ -11,8 +13,8 @@ object ServiceClient{
         m_service = null;
     }
 
-    fun connect() {
-        m_service?.connect()
+    fun connect(_context: AppCompatActivity) {
+        m_service?.connect(_context)
     }
 
     fun disconnect() {
