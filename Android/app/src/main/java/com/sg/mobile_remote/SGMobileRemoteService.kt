@@ -4,8 +4,8 @@ import android.accessibilityservice.AccessibilityService
 import android.content.Intent
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
+import androidx.appcompat.app.AppCompatActivity
 import com.sg.mobile_remote.core.MobileRemoteClient
-import kotlin.concurrent.thread
 
 class SGMobileRemoteService() : AccessibilityService() {
     private var _client = MobileRemoteClient()
@@ -31,9 +31,9 @@ class SGMobileRemoteService() : AccessibilityService() {
         ServiceClient.unbind()
     }
 
-    fun connect() {
+    fun connect(_context: AppCompatActivity) {
         Log.i("SGADTRACE", "SGMobileRemoteService::connect")
-        _client.startClient()
+        _client.startClient(_context)
     }
 
     fun disconnect() {

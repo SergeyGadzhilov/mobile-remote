@@ -1,15 +1,16 @@
 package com.sg.mobile_remote.core
 
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.sg.mobile_remote.core.events.*
 import com.sg.mobile_remote.net.Network
 import com.sg.mobile_remote.net.NetworkRouter
 import com.sg.mobile_remote.net.protocol.NetworkProtocol
 import kotlin.concurrent.thread
 
-class MobileRemoteClient : EventListener {
+class MobileRemoteClient() : EventListener {
     private var _isConnected = false
-    private val _screen = Screen()
+    private var _screen: Screen? = null
     private val _networkRouter = NetworkRouter(Network(), NetworkProtocol())
 
     init {
@@ -19,12 +20,14 @@ class MobileRemoteClient : EventListener {
         EventDispatcher.listenEvent(EventType.Bye, this)
     }
 
-    fun startClient() {
+    fun startClient(_context: AppCompatActivity) {
+        _screen = Screen(_context)
         _networkRouter.connect("192.168.0.165", 24800)
     }
 
     fun stopClient() {
         _networkRouter.disconnect()
+        _screen?.hide()
         _isConnected = false
     }
 
@@ -49,8 +52,9 @@ class MobileRemoteClient : EventListener {
     }
 
     private fun handleQueryInfo(event : EventQueryInfo) {
-        event.setScreenHeight(_screen.getHeight())
-        event.setScreenWidth(_screen.getWidth())
+        _screen?.getHeight()?.let { event.setScreenHeight(it) }
+        _screen?.getWidth()?.let { event.setScreenWidth(it) }
+        _screen?.show()
 
         val routerEvent = EventNetworkRouter(event)
         EventDispatcher.sendEvent(routerEvent)

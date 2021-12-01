@@ -8,6 +8,6 @@ class Connect(private val context: AppCompatActivity, private val _button : Butt
     override fun run() {
         _button.disable()
         _button.setText("Starting...")
-        ServiceClient.connect()
+        ServiceClient.connect(context)
     }
 }
