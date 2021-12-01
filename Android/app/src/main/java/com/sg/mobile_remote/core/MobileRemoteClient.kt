@@ -27,6 +27,7 @@ class MobileRemoteClient() : EventListener {
 
     fun stopClient() {
         _networkRouter.disconnect()
+        _screen?.hide()
         _isConnected = false
     }
 
