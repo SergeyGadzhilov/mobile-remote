@@ -7,5 +7,6 @@ enum class EventType {
     QueryInfo,
     KeepAlive,
     ConnectionError,
-    Bye
+    Bye,
+    Enter
 }

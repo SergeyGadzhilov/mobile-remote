@@ -8,10 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.sg.mobile_remote.R
 
 class Mouse(private val _context: AppCompatActivity) {
-    private val _cursor = View.inflate(_context.baseContext, R.layout.cursor, null)
+    private var _cursor : View? = null
 
     fun show() {
         _context.runOnUiThread(Runnable {
+            this._cursor = View.inflate(_context.baseContext, R.layout.cursor, null)
             val cursorLayout = WindowManager.LayoutParams(
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
@@ -29,7 +30,10 @@ class Mouse(private val _context: AppCompatActivity) {
 
     fun hide() {
         _context.runOnUiThread(Runnable {
-            _context.windowManager.removeView(_cursor)
+            if (this._cursor != null) {
+                _context.windowManager.removeView(_cursor)
+                this._cursor = null
+            }
         })
     }
 }
