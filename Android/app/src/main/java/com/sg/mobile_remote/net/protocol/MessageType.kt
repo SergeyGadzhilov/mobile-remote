@@ -7,5 +7,6 @@ enum class MessageType {
     DINF,
     CALV,
     CBYE,
-    CINN
+    CINN,
+    COUT
 }
