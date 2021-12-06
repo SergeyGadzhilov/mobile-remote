@@ -6,7 +6,6 @@ import com.sg.mobile_remote.core.events.*
 import com.sg.mobile_remote.net.Network
 import com.sg.mobile_remote.net.NetworkRouter
 import com.sg.mobile_remote.net.protocol.NetworkProtocol
-import kotlin.concurrent.thread
 
 class MobileRemoteClient() : EventListener {
     private var _isConnected = false
@@ -18,6 +17,7 @@ class MobileRemoteClient() : EventListener {
         EventDispatcher.listenEvent(EventType.QueryInfo, this)
         EventDispatcher.listenEvent(EventType.KeepAlive, this)
         EventDispatcher.listenEvent(EventType.Bye, this)
+        EventDispatcher.listenEvent(EventType.Enter, this)
     }
 
     fun startClient(_context: AppCompatActivity) {
@@ -37,24 +37,18 @@ class MobileRemoteClient() : EventListener {
     }
 
     override fun handleEvent(event: Event) {
-        if (event.type() == EventType.Hello) {
-            handleHello(event as EventHello)
-        }
-        else if (event.type() == EventType.QueryInfo) {
-            handleQueryInfo(event as EventQueryInfo)
-        }
-        else if (event.type() == EventType.KeepAlive) {
-            handleKeepAlive(event as EventKeepAlive)
-        }
-        else if (event.type() == EventType.Bye) {
-            this.stopClient()
+        when(event.type()) {
+            EventType.Hello -> handleHello(event as EventHello)
+            EventType.QueryInfo -> handleQueryInfo(event as EventQueryInfo)
+            EventType.KeepAlive -> handleKeepAlive(event as EventKeepAlive)
+            EventType.Bye -> this.stopClient()
+            EventType.Enter -> this._screen?.show()
         }
     }
 
     private fun handleQueryInfo(event : EventQueryInfo) {
         _screen?.getHeight()?.let { event.setScreenHeight(it) }
         _screen?.getWidth()?.let { event.setScreenWidth(it) }
-        _screen?.show()
 
         val routerEvent = EventNetworkRouter(event)
         EventDispatcher.sendEvent(routerEvent)
