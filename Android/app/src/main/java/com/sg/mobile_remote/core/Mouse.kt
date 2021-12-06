@@ -10,7 +10,7 @@ import com.sg.mobile_remote.R
 class Mouse(private val _context: AppCompatActivity) {
     private var _cursor : View? = null
 
-    fun show() {
+    fun show(x: Short, y: Short) {
         _context.runOnUiThread(Runnable {
             this._cursor = View.inflate(_context.baseContext, R.layout.cursor, null)
             val cursorLayout = WindowManager.LayoutParams(
@@ -22,8 +22,8 @@ class Mouse(private val _context: AppCompatActivity) {
                 PixelFormat.TRANSLUCENT)
 
             cursorLayout.gravity = Gravity.TOP and Gravity.START
-            cursorLayout.x = 200;
-            cursorLayout.y = 200;
+            cursorLayout.x = x.toInt();
+            cursorLayout.y = y.toInt();
             _context.windowManager.addView(_cursor, cursorLayout)
         })
     }

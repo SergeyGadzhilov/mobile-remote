@@ -17,7 +17,6 @@ class MobileRemoteClient() : EventListener {
         EventDispatcher.listenEvent(EventType.QueryInfo, this)
         EventDispatcher.listenEvent(EventType.KeepAlive, this)
         EventDispatcher.listenEvent(EventType.Bye, this)
-        EventDispatcher.listenEvent(EventType.Enter, this)
     }
 
     fun startClient(_context: AppCompatActivity) {
@@ -42,7 +41,6 @@ class MobileRemoteClient() : EventListener {
             EventType.QueryInfo -> handleQueryInfo(event as EventQueryInfo)
             EventType.KeepAlive -> handleKeepAlive(event as EventKeepAlive)
             EventType.Bye -> this.stopClient()
-            EventType.Enter -> this._screen?.show()
         }
     }
 

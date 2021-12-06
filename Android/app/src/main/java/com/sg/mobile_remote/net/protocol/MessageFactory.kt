@@ -9,7 +9,8 @@ class MessageFactory() {
         MessageType.QINF to QINF(),
         MessageType.CALV to CALV(),
         MessageType.CBYE to CBYE(),
-        MessageType.CINN to CINN()
+        MessageType.CINN to CINN(),
+        MessageType.COUT to COUT()
     )
 
     private val _mapEvents = mapOf<EventType, MessageType> (
@@ -17,7 +18,8 @@ class MessageFactory() {
         EventType.QueryInfo to MessageType.QINF,
         EventType.KeepAlive to MessageType.CALV,
         EventType.Bye to MessageType.CBYE,
-        EventType.Enter to MessageType.CINN
+        EventType.Enter to MessageType.CINN,
+        EventType.Exit to MessageType.COUT
     )
 
     fun createTranslator(type : MessageType): MessageTranslator? {

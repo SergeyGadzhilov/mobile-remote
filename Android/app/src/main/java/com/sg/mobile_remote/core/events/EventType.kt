@@ -8,5 +8,6 @@ enum class EventType {
     KeepAlive,
     ConnectionError,
     Bye,
-    Enter
+    Enter,
+    Exit
 }
