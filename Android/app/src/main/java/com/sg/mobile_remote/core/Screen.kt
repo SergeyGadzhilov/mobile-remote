@@ -22,7 +22,7 @@ class Screen(private val _context: AppCompatActivity) : EventListener {
         return Resources.getSystem().displayMetrics.widthPixels
     }
 
-    fun show(event: EventEnter) {
+    private fun show(event: EventEnter) {
         this._mouse.show(event.getX(), event.getY())
     }
 

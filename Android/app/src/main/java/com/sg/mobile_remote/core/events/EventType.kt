@@ -9,5 +9,6 @@ enum class EventType {
     ConnectionError,
     Bye,
     Enter,
-    Exit
+    Exit,
+    MouseMove
 }

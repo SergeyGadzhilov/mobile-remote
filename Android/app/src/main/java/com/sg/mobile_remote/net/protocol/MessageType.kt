@@ -8,5 +8,6 @@ enum class MessageType {
     CALV,
     CBYE,
     CINN,
-    COUT
+    COUT,
+    DMMV
 }
