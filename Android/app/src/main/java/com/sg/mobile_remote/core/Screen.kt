@@ -26,7 +26,7 @@ class Screen(private val _context: AppCompatActivity) : EventListener {
         this._mouse.show(event.getX(), event.getY())
     }
 
-    fun hide() {
+    private fun hide() {
         this._mouse.hide()
     }
 
